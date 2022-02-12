@@ -13,7 +13,12 @@ const campaignController = require("../../controller/campaignController");
 router.get("/", checkAuth, campaignController.getBrandUserCampaigns);
 router.get("/get", checkAuth, campaignController.getCampaign);
 router.post("/add", checkAuth, campaignController.addCampaign);
-router.get("/meme/:id", checkAuth, campaignController.getCampaignMemes);
+router.get("/meme", checkAuth, campaignController.getCampaignMemes);
+router.get(
+  "/meme/history",
+  checkAuth,
+  campaignController.getCampaignMemeHistory
+);
 
 // Campaign Memers
 router.get("/memer/", checkAuth, campaignController.getCampaignMemers);

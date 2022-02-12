@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
       let message;
       if (memer.isDeleted) {
         await memer.update({
-          $set: { isDeleted: false },
+          $set: { ...req.body, isDeleted: false },
         });
         message = "Memer registered successfully";
       } else {
@@ -60,7 +60,6 @@ exports.register = async (req, res, next) => {
     }
     return res.status(200).json(returnData);
   } catch (error) {
-    console.log(error);
     return res.status(500).json(error);
   }
 };

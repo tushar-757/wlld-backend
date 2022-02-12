@@ -12,10 +12,15 @@ const memerController = require("../../controller/memerController");
 /** Api Response */
 router.get("/", checkAuth, memerController.getMemers);
 router.get("/:id", checkAuth, memerController.getMemerById);
+
+router.post("/tags", checkAuth, memerController.getTags);
+
 router.post("/clients", checkAuth, memerController.getClients);
 router.post("/transactions", checkAuth, memerController.getTransactions);
 router.post("/getcampaigns", checkAuth, memerController.getCampaigns);
 router.post("/addmemes", checkAuth, memerController.addMemes);
 router.post("/addcampaignmemes", checkAuth, memerController.addCampaignMemes);
+
+router.post("/updatefcmtoken", checkAuth, memerController.updateFCMToken);
 
 module.exports = router;

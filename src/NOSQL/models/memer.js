@@ -9,6 +9,7 @@ const MemerSchema = mongoose.Schema(
     phoneNo: { type: Number, default: null },
     picture: { type: String, default: "" },
     price: { type: Number, required: true },
+    fcmToken: { type: String, default: null },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }

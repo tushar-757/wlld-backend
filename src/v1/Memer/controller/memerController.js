@@ -60,8 +60,6 @@ exports.getClients = async (req, res, next) => {
       {
         price: true,
         campaignId: true,
-        quantity: true,
-        submittedMemes: true,
         approvedMemes: true,
       }
     ).populate({
@@ -94,7 +92,7 @@ exports.getTransactions = async (req, res, next) => {
   try {
     let returnData;
     console.log(req.payload._id);
-    const clients = await db.CampaignMemer.find(
+    const transactions = await db.CampaignMemer.find(
       { memerId: req.payload._id, isDeleted: false },
       {
         price: true,
@@ -106,10 +104,7 @@ exports.getTransactions = async (req, res, next) => {
     ).populate({
       path: "campaign",
       select: {
-        status: true,
         brandUserId: true,
-        startDate: true,
-        endDate: true,
       },
       populate: {
         path: "brand",
@@ -119,10 +114,11 @@ exports.getTransactions = async (req, res, next) => {
         },
       },
     });
+
     returnData = {
       status: true,
-      message: "Clients fetched succesfully",
-      data: clients,
+      message: "Transactions fetched succesfully",
+      data: transactions,
     };
 
     return res.status(200).json(returnData);
@@ -234,6 +230,60 @@ exports.addCampaignMemes = async (req, res, next) => {
       message: "Campaign memes uploaded successfully",
       data: memes,
     };
+    return res.status(200).json(returnData);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+exports.updateFCMToken = async (req, res, next) => {
+  try {
+    var returnData;
+    const { fcmToken } = req.body;
+
+    await db.Memer.updateOne({ _id: req.payload._id }, { $set: req.body });
+
+    returnData = {
+      status: true,
+      message: "FCM token updated successfully",
+      data: fcmToken,
+    };
+
+    return res.status(200).json(returnData);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+exports.getTags = async (req, res, next) => {
+  try {
+    var returnData;
+    const tags = await db.MemerTag.find(
+      {
+        memerId: req.payload._id,
+        isDeleted: false,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        memerId: false,
+        __v: false,
+      }
+    ).populate({
+      path: "tag",
+      select: {
+        name: true,
+      },
+    });
+
+    returnData = {
+      status: true,
+      message: "Tags fetched successfully",
+      data: tags,
+    };
+
     return res.status(200).json(returnData);
   } catch (error) {
     console.log(error);

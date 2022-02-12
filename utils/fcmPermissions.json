@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "memechat-wldd",
+  "private_key_id": "16d61575d5ac2b5d762b0176b612c62718e8c443",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDzq+NF77EvsQow\nAnKl6a7qBx0CrlTJchAAunOxkwbV8T/wYnm+5i5mtLdfjR0WBXrkqd608nvRL5Lk\nqh5Kza47j8gC1Ls6f1umw/MotHvB3IylSEEVQuuJ+aNmmJGpfZI9nELX+jaccrEI\n/exO8cpVnqUxlkILWgCaSEufEaKa64UIItbhu7jA5a2Kdx9SwvDGJBCj9ODkrxvG\njt0bcpaPXE+kcP+L1JBO+fxWOFlZfLtdNw347M45Cv698Y7Jn6VGBZc1jPlkGF5H\nIaNNnCmS0gRcoJolDdFUAXbtB40FMdJ4wS3rgZz2OexqPN+PlXprsFw6kN+t0CTw\n+S25ZHI/AgMBAAECggEAVgIjgBGJVMCkTGroxdhUlaV6H3KiWdKJhIBLiu/PF2AG\nxhY0S+YalcUO/sqj7Bx2EtVE11DJ1H361vyXIac06zAmlJ07EvxWQOhkYUdHcZek\nC0kUM+mBkxuLChErRQyePGH2FB7s/M7c30Qlj334Ab20KGsVl8Umdk6zZovGffCY\nnJB5TKj+raNc/Jctx4PEMBbBydavIR4nU9VZ12rl88TeTgIuVPfwkh56FBox5/2n\nJ8qXVExlqgSlX1J/b/Bg53yjxzIpDFKSn1ksMsT760rj7Y95irGcSUF1mBbR6skw\nJJhKoBkBYeRwBB+shKXMZCxBcZkiN5CqM+zf+hy2iQKBgQD6FlqTFaQa8HWjYyDS\nw2fATft3EJF3r+AcknjTB4o0OqaUm8GP6U/kntFQdi6kvl8owq8IOYxUfCUKiMZS\nGkKxxREbQUKPe2nvY15S15ftuwGQ/s/iGNPyW4C+44iZwye5U7VDdfivUJ2CwInQ\nn+Tl6EFeQwUoT9ceARSCnCH8VwKBgQD5brO4loVOP7OchxK4yNHHE9K5TB0ZYm7x\nuXFyvlOSZxf3/ZXoMZArIwwOaXjU25KfkwwrGU1dIabDr6lxs12gw+LE39tS23G9\nEjZKg2e7cb+VJHxGA8qj1l7Vmeftvt7VdS/H0OwNg7oPt78aVNdc5et8QvV0dhU0\nl3g3TTcIWQKBgQCwQ3cdOeCLODXBrclho2YJzSzSk3PjxqsPmFDec+79tuTX0xvP\nAaNUwHdI3bMsXB0XznetNVpp5YH59cLJ9UZSo1HWQt3V4SceGYxOmTO009xbxKzi\nb5tasxF/+UC7Fyh1X8FfRdO8RPZvRKMdzsR3IoaIGHaXHgbBWAOLtt3hSwKBgQCp\nhK7n+IRIlcp/ytzScMkBP1urSytLoTY9WgbcMLWjfiUwCUvkLisI5hy/frb8Eu4n\nPUy7zcpiTQiFXdEO0RQEupxXqLvqJ/G4ybPUGFJbdgb6WX2MJ++EQaDaEmspjNrs\nv2PlrPuAg9Hj9MEQKDDllezg2rDuoYHv6DFvhC6uoQKBgQCpdXcdUkT2CDidSLaW\n8OxC3fsiuBrPkjqpDM7FjD+cPaz5hlwQea+Wi6qdoGoCyGMoMjxZUcyunFGNyW54\n0+8FWPHAxr8P3HP1Xkjl4CvqeyS/rJf6w+T4T4pyiPeYD9ZY/7lf1JM1ijV7EXDs\nJTj6aQsHkIvA6/NZPoTpsWFnmA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-loxrj@memechat-wldd.iam.gserviceaccount.com",
+  "client_id": "101173326905703474353",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-loxrj%40memechat-wldd.iam.gserviceaccount.com"
+}

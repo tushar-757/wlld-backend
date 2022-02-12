@@ -8,7 +8,10 @@ exports.getBundle = async (req, res, next) => {
     let returnData;
     const { bundleId } = req.body;
 
-    const bundle = await db.Bundle.findById(bundleId);
+    const bundle = await db.Bundle.findById(
+      { _id: bundleId, isDeleted: false },
+      { isDeleted: false }
+    );
 
     returnData = {
       status: true,
@@ -26,10 +29,13 @@ exports.getBundleMemers = async (req, res, next) => {
   try {
     var returnData;
     const { bundleId } = req.body;
-    const memers = await db.BundleMemer.find({
-      bundleId: bundleId,
-      isDeleted: false,
-    }).populate({
+    const memers = await db.BundleMemer.find(
+      {
+        bundleId: bundleId,
+        isDeleted: false,
+      },
+      { price: false, isDeleted: false, bundleId: false, quantity: false }
+    ).populate({
       path: "memer",
       match: { isDeleted: false },
       select: {

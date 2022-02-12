@@ -162,13 +162,13 @@ exports.getBrandMemerGroups = async (req, res, next) => {
     var returnData;
 
     const memerGroups = await db.BrandMemerGroup.find(
-      { isDeleted: false },
+      { brandUserId: req.payload._id, isDeleted: false },
       { description: true, name: true }
     );
 
     returnData = {
       status: true,
-      message: "Brand memer group fetched successfully",
+      message: "Brand memer groups fetched successfully",
       data: memerGroups,
     };
 
@@ -200,7 +200,7 @@ exports.addMemerToBrandGroup = async (req, res, next) => {
       return res.status(200).json({
         status: false,
         message: message,
-        data: memerGroup,
+        data: memer,
       });
     } else {
       const memer = new db.BrandGroupMemer({
@@ -218,6 +218,7 @@ exports.addMemerToBrandGroup = async (req, res, next) => {
 
     return res.status(200).json(returnData);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -252,10 +253,13 @@ exports.getBrandGroupMemers = async (req, res, next) => {
   try {
     var returnData;
     const { brandGroupId } = req.body;
-    const memers = await db.BrandGroupMemer.find({
-      brandGroupId: brandGroupId,
-      isDeleted: false,
-    }).populate({
+    const memers = await db.BrandGroupMemer.find(
+      {
+        brandGroupId: brandGroupId,
+        isDeleted: false,
+      },
+      { isDeleted: false, createdAt: false, updatedAt: false, __v: false }
+    ).populate({
       path: "memer",
       match: { isDeleted: false },
       select: {
@@ -280,6 +284,25 @@ exports.getBrandGroupMemers = async (req, res, next) => {
       status: true,
       message: "Brand group memers fetched successfully",
       data: memers,
+    };
+
+    return res.status(200).json(returnData);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+exports.updateFCMToken = async (req, res, next) => {
+  try {
+    var returnData;
+    const { fcmToken } = req.body;
+
+    await db.BrandUser.updateOne({ _id: req.payload._id }, { $set: req.body });
+
+    returnData = {
+      status: true,
+      message: "FCM token updated successfully",
+      data: fcmToken,
     };
 
     return res.status(200).json(returnData);

@@ -79,14 +79,29 @@ exports.getBrandUserCampaigns = async (req, res, next) => {
 exports.getCampaign = async (req, res, next) => {
   try {
     const { campaignId } = req.body;
-    const campaignData = await db.Campaign.findById({
-      _id: campaignId,
-    })
+    const campaignData = await db.Campaign.findById(
+      {
+        _id: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    )
       .populate({
         path: "brand",
+        select: {
+          isDeleted: false,
+          createdAt: false,
+          updatedAt: false,
+          __v: false,
+        },
       })
       .populate({
         path: "brandUser",
+        select: { phoneNo: true },
       });
 
     returnData = {
@@ -233,9 +248,30 @@ exports.addCampaign = async (req, res, next) => {
   }
 };
 
-exports.getCampaignMemes = async (req, res, next) => {
+exports.getCampaignMemeHistory = async (req, res, next) => {
   try {
     let returnData;
+    const { campaignMemeId } = req.body;
+
+    const campaignMemeHistory = await db.CampaignMemeHistory.find(
+      {
+        campaignMemeId: campaignMemeId,
+      },
+      {
+        campaignMemeId: false,
+        createdAt: false,
+        updatedAt: false,
+        isDeleted: false,
+        __v: false,
+      }
+    );
+
+    returnData = {
+      status: true,
+      message: "Campaign memes fetched successfully",
+      data: campaignMemeHistory,
+    };
+
     return res.status(200).json(returnData);
   } catch (error) {
     return res.status(500).json(error);
@@ -245,9 +281,27 @@ exports.getCampaignMemes = async (req, res, next) => {
 exports.getCampaignMemes = async (req, res, next) => {
   try {
     let returnData;
-    const returnStr = JSON.stringify(returnData);
+    const { campaignId } = req.body;
 
-    return res.status(200).json({});
+    const campaignMemes = await db.CampaignMeme.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
+
+    returnData = {
+      status: true,
+      message: "Campaign memes fetched successfully",
+      data: campaignMemes,
+    };
+
+    return res.status(200).json(returnData);
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);
@@ -259,10 +313,18 @@ exports.getCampaignMemers = async (req, res, next) => {
   try {
     var returnData;
     const { campaignId } = req.body;
-    const memers = await db.CampaignMemer.find({
-      campaignId: campaignId,
-      isDeleted: false,
-    }).populate({
+    const memers = await db.CampaignMemer.find(
+      {
+        campaignId: campaignId,
+        isDeleted: false,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    ).populate({
       path: "memer",
       match: { isDeleted: false },
       select: {
@@ -376,9 +438,17 @@ exports.getCampaignFormat = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignFormats = await db.CampaignFormat.find({
-      campaignId: campaignId,
-    });
+    const campaignFormats = await db.CampaignFormat.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,
@@ -475,9 +545,17 @@ exports.getCampaignResource = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignResources = await db.CampaignResource.find({
-      campaignId: campaignId,
-    });
+    const campaignResources = await db.CampaignResource.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,
@@ -551,9 +629,17 @@ exports.getCampaignObjective = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignObjectives = await db.CampaignObjective.find({
-      campaignId: campaignId,
-    });
+    const campaignObjectives = await db.CampaignObjective.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,
@@ -653,9 +739,17 @@ exports.getCampaignMessage = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignMessages = await db.CampaignMessage.find({
-      campaignId: campaignId,
-    });
+    const campaignMessages = await db.CampaignMessage.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,
@@ -754,9 +848,17 @@ exports.getCampaignDo = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignDos = await db.CampaignDo.find({
-      campaignId: campaignId,
-    });
+    const campaignDos = await db.CampaignDo.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,
@@ -854,9 +956,17 @@ exports.getCampaignDont = async (req, res, next) => {
     var returnData;
     const { campaignId } = req.body;
 
-    const campaignDonts = await db.CampaignDont.find({
-      campaignId: campaignId,
-    });
+    const campaignDonts = await db.CampaignDont.find(
+      {
+        campaignId: campaignId,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    );
 
     returnData = {
       status: true,

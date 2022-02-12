@@ -4,6 +4,7 @@ const BrandSchema = new mongoose.Schema(
   {
     brandName: { type: String, required: true },
     description: { type: String, required: true },
+    phoneNo: { type: Number, default: null },
     brandUserId: { type: mongoose.Schema.ObjectId, required: true },
     website: { type: String, required: true },
     brandLogo: { type: String, default: null },

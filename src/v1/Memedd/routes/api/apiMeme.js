@@ -11,6 +11,6 @@ const memeController = require("../../controller/memeController");
 
 /** Api Response */
 router.get("/getmediatypes", checkAuth, memeController.getMemeTypes);
-router.post("/approvememe", checkAuth, memeController.approveMeme);
+router.post("/updatememe", checkAuth, memeController.updateMeme);
 
 module.exports = router;

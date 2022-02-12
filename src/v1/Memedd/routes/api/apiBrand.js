@@ -2,6 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const checkAuth = require("../../../../middleware/checkAuth");
+const brand = require("../../../../NOSQL/models/brand");
 
 /** Validator */
 const v = require("../../../validators/validator");
@@ -42,6 +43,7 @@ router.get(
   checkAuth,
   brandController.getBrandGroupMemers
 );
+router.post("/updatefcmtoken", checkAuth, brandController.updateFCMToken);
 
 router.get("/memer", checkAuth, brandController.getMemer);
 router.get("/memer/memes", checkAuth, brandController.getMemerMemes);

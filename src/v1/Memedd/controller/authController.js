@@ -15,6 +15,7 @@ exports.register = async (req, res, next) => {
       firstName,
       lastName,
       firebaseToken,
+      fcmToken,
     } = req.body;
 
     const brandUser = await db.BrandUser.findOne({
@@ -26,7 +27,7 @@ exports.register = async (req, res, next) => {
       let message;
       if (brandUser.isDeleted) {
         await brandUser.update({
-          $set: { isDeleted: false },
+          $set: { ...req.body, isDeleted: false },
         });
         message = "BrandUser registered successfully";
       } else {
@@ -50,6 +51,7 @@ exports.register = async (req, res, next) => {
         email: email,
         phoneNo: phoneNo,
         firebaseToken: firebaseToken,
+        fcmToken: fcmToken,
       });
       await brandUser.save();
 

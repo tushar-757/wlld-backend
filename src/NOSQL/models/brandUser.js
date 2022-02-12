@@ -7,6 +7,7 @@ const BrandUserSchema = new mongoose.Schema(
     email: { type: String, required: true },
     phoneNo: { type: Number, default: null },
     firebaseToken: { type: String, default: null },
+    fcmToken: { type: String, default: null },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }

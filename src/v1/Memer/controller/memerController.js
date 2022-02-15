@@ -40,7 +40,7 @@ exports.getMemers = async (req, res, next) => {
     });
     returnData = {
       status: true,
-      message: "Memers fetched succesfully",
+      message: "Memers fetched successfully",
       data: memers,
     };
 
@@ -78,7 +78,7 @@ exports.getClients = async (req, res, next) => {
     });
     returnData = {
       status: true,
-      message: "Clients fetched succesfully",
+      message: "Clients fetched successfully",
       data: clients,
     };
 
@@ -117,7 +117,7 @@ exports.getTransactions = async (req, res, next) => {
 
     returnData = {
       status: true,
-      message: "Transactions fetched succesfully",
+      message: "Transactions fetched successfully",
       data: transactions,
     };
 
@@ -158,7 +158,7 @@ exports.getCampaigns = async (req, res, next) => {
     });
     returnData = {
       status: true,
-      message: "Clients fetched succesfully",
+      message: "Clients fetched successfully",
       data: clients,
     };
 

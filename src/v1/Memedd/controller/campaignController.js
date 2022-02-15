@@ -79,7 +79,7 @@ exports.getBrandUserCampaigns = async (req, res, next) => {
 exports.getCampaign = async (req, res, next) => {
   try {
     const { campaignId } = req.body;
-    const campaignData = await db.Campaign.findById(
+    let campaignData = await db.Campaign.findById(
       {
         _id: campaignId,
       },
@@ -89,20 +89,22 @@ exports.getCampaign = async (req, res, next) => {
         updatedAt: false,
         __v: false,
       }
-    )
-      .populate({
-        path: "brand",
-        select: {
-          isDeleted: false,
-          createdAt: false,
-          updatedAt: false,
-          __v: false,
-        },
-      })
-      .populate({
-        path: "brandUser",
-        select: { phoneNo: true },
-      });
+    ).populate({
+      path: "brand",
+      select: {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      },
+    });
+    // .populate({
+    //   path: "brandUser",
+    //   select: { phoneNo: true },
+    // });
+
+    campaignData = campaignData.toObject();
+    campaignData["phoneNo"] = req.payload.phoneNo;
 
     returnData = {
       status: "false",
@@ -121,8 +123,14 @@ exports.addCampaign = async (req, res, next) => {
     // MISSING PDF creation
     var returnData;
     const campaignStatus = "Brief Created";
-    const { campaignName, brandName, description, endDate, startDate } =
-      req.body;
+    const {
+      campaignName,
+      brandId,
+      brandName,
+      description,
+      endDate,
+      startDate,
+    } = req.body;
 
     const campaign = await db.Campaign.findOne({
       $and: [
@@ -142,6 +150,7 @@ exports.addCampaign = async (req, res, next) => {
     } else {
       const newCampaign = await db.Campaign({
         brandUserId: req.payload._id,
+        brandId: brandId,
         brandName: brandName,
         campaignName: campaignName,
         description: description,
@@ -161,87 +170,29 @@ exports.addCampaign = async (req, res, next) => {
         data: campaignData,
       };
     }
-    ({
-      path: "campaignFormat",
-    }
-      .populate({
-        path: "campaignResource",
-        match: { isDeleted: false },
-      })
-      .populate({
-        path: "campaignObjective",
-        match: { isDeleted: false },
-      })
-      .populate({
-        path: "campaignMessage",
-        match: { isDeleted: false },
-      })
-      .populate({
-        path: "campaignDo",
-        match: { isDeleted: false },
-      })
-      .populate({
-        path: "campaignDont",
-        match: { isDeleted: false },
-      }));
-
-    returnData = {
-      status: "false",
-      message: "Campaign data fetched successfully",
-      data: campaignData,
-    };
     return res.status(200).json(returnData);
   } catch (error) {
-    console.log(error);
     return res.status(500).json(error);
   }
 };
 
-exports.addCampaign = async (req, res, next) => {
+exports.updateCampaign = async (req, res, next) => {
   try {
     // MISSING PDF creation
     var returnData;
-    const campaignStatus = "Brief Created";
-    const { campaignName, brandName, description, endDate, startDate } =
-      req.body;
+    const { campaignId } = req.body;
+    const campaignData = await db.Campaign.findByIdAndUpdate(
+      { _id: campaignId },
+      {
+        $set: req.body,
+      }
+    );
+    returnData = {
+      status: true,
+      message: "Campaign updated successfully",
+      data: campaignData,
+    };
 
-    const campaign = await db.Campaign.findOne({
-      $and: [
-        { brandUserId: req.payload._id },
-        { campaignName: campaignName },
-        { isDeleted: false },
-      ],
-    });
-
-    if (campaign) {
-      returnData = {
-        status: "false",
-        message:
-          "A campaign with the same name is already associated with this brand",
-        data: {},
-      };
-    } else {
-      const newCampaign = await db.Campaign({
-        brandUserId: req.payload._id,
-        brandName: brandName,
-        campaignName: campaignName,
-        description: description,
-        endDate: endDate,
-        startDate: startDate,
-        status: campaignStatus,
-      });
-      await newCampaign.save();
-
-      var campaignData = {
-        campaignId: newCampaign._id,
-      };
-
-      returnData = {
-        status: true,
-        message: "Campaign created successfully",
-        data: campaignData,
-      };
-    }
     return res.status(200).json(returnData);
   } catch (error) {
     return res.status(500).json(error);
@@ -330,6 +281,7 @@ exports.getCampaignMemers = async (req, res, next) => {
       select: {
         firstName: true,
         lastName: true,
+        price: true,
         picture: true,
         approvedMemes: true,
       },
@@ -386,8 +338,6 @@ exports.addCampaignMemer = async (req, res, next) => {
       const newCampaignMemer = new db.CampaignMemer({
         campaignId: campaignId,
         memerId: memerId,
-        name: name,
-        price: price,
         quantity: quantity,
       });
       await newCampaignMemer.save();

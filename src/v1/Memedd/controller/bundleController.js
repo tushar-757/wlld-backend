@@ -34,7 +34,7 @@ exports.getBundleMemers = async (req, res, next) => {
         bundleId: bundleId,
         isDeleted: false,
       },
-      { price: false, isDeleted: false, bundleId: false, quantity: false }
+      { isDeleted: false, bundleId: false }
     ).populate({
       path: "memer",
       match: { isDeleted: false },

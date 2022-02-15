@@ -4,7 +4,6 @@ const CampaignMemerSchema = mongoose.Schema(
   {
     campaignId: { type: mongoose.Schema.ObjectId, required: true },
     memerId: { type: mongoose.Schema.ObjectId, required: true },
-    price: { type: Number, required: true },
     name: { type: String, required: false },
     quantity: { type: Number, required: true },
     submittedMemes: { type: Number, default: 0 },

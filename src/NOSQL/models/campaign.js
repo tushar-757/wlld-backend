@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const CampaignSchema = mongoose.Schema(
   {
     brandUserId: { type: mongoose.Schema.ObjectId, required: true },
+    brandId: { type: mongoose.Schema.ObjectId, required: true },
     brandName: { type: String, required: true },
     campaignName: { type: String, required: true },
     description: { type: String, required: false },

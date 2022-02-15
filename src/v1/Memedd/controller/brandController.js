@@ -106,7 +106,7 @@ exports.addBrandMemerGroups = async (req, res, next) => {
         message = "This brand memer group name is already registered";
       }
       return res.status(200).json({
-        status: false,
+        status: true,
         message: message,
         data: memerGroup,
       });
@@ -169,7 +169,7 @@ exports.getBrandMemerGroups = async (req, res, next) => {
     returnData = {
       status: true,
       message: "Brand memer groups fetched successfully",
-      data: memerGroups,
+      data: { memerGroups: memerGroups },
     };
 
     return res.status(200).json(returnData);
@@ -283,7 +283,7 @@ exports.getBrandGroupMemers = async (req, res, next) => {
     returnData = {
       status: true,
       message: "Brand group memers fetched successfully",
-      data: memers,
+      data: { memers: memers },
     };
 
     return res.status(200).json(returnData);
@@ -362,6 +362,7 @@ exports.getMemerMemes = async (req, res, next) => {
       {
         name: true,
         picture: true,
+        filetype: true,
       }
     );
     let memes = {};

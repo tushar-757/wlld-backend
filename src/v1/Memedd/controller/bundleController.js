@@ -93,7 +93,7 @@ exports.getAllBundles = async (req, res, next) => {
     });
     returnData = {
       status: true,
-      message: "Bundles fetched succesfully",
+      message: "Bundles fetched successfully",
       data: bundles,
     };
 

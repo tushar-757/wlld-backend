@@ -17,7 +17,7 @@ const errorMiddleware = require("./src/middleware/error");
 global.__basedir = __dirname;
 
 // database connection
-require("./src/NOSQL/database/mongodb");
+const db = require("./src/NOSQL/database/mongodb");
 
 const app = express();
 
@@ -52,8 +52,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-// Memedd app API routes
-app.use("/app/branduser/auth", apiAuth);
+// // Memedd app API routes
+app.use("/app/brand-user/auth", apiAuth);
 app.use("/app/brand", apiBrand);
 app.use("/app/bundle", apiBundle);
 app.use("/app/tag", apiTag);
@@ -64,6 +64,11 @@ app.use("/app/platform", apiPlatform);
 // Memer app API routes
 app.use("/app/memer/auth", apiMemerAuth);
 app.use("/app/memer", apiMemer);
+
+// app.get("/test", async (req, res) => {
+//   const data = ["Finance", "Cities", "Standup", "Billiards", ""];
+//   const tag = await db.Tag.insertMany(data);
+// });
 
 app.use(errorMiddleware);
 

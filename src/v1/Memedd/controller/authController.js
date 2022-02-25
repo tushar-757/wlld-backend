@@ -37,7 +37,9 @@ exports.register = async (req, res, next) => {
       return res.status(200).json({
         status: false,
         message: message,
-        data: brandUser,
+        data: {
+          user: brandUser,
+        },
       });
     } else {
       // here for the company logo, we can search it in the files table
@@ -76,10 +78,13 @@ exports.register = async (req, res, next) => {
       return res.status(200).json({
         status: true,
         message: "Brand registered successfully",
-        data: tokenData,
+        data: {
+          token: tokenData,
+        },
       });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -116,7 +121,9 @@ exports.login = async (req, res, next) => {
       returnData = {
         status: true,
         message: "Brand logged in successfully",
-        data: brandData,
+        data: {
+          user: brandData
+        },
       };
     } else {
       returnData = {

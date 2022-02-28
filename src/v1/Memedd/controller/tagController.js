@@ -19,7 +19,9 @@ exports.getTags = async (req, res, next) => {
       returnData = {
         status: true,
         message: "Tag list fetched successfully",
-        data: tags,
+        data: {
+          tags: tags
+        },
       };
     } else {
       returnData = {

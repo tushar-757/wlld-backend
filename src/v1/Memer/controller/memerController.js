@@ -41,7 +41,9 @@ exports.getMemers = async (req, res, next) => {
     returnData = {
       status: true,
       message: "Memers fetched successfully",
-      data: memers,
+      data: {
+        memers: memers,
+      },
     };
 
     return res.status(200).json(returnData);

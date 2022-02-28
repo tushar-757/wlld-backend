@@ -115,14 +115,14 @@ exports.login = async (req, res, next) => {
         phoneNo: brandUser.phoneNo,
         brandId: brandUser.brandId,
         secureToken: secureToken,
-        isRegistered: true,
       };
 
       returnData = {
         status: true,
         message: "Brand logged in successfully",
         data: {
-          user: brandData
+          user: brandData,
+          isRegistered: true,
         },
       };
     } else {

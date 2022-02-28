@@ -94,7 +94,7 @@ exports.getAllBundles = async (req, res, next) => {
     returnData = {
       status: true,
       message: "Bundles fetched successfully",
-      data: bundles,
+      data: { bundleData: bundles },
     };
 
     return res.status(200).json(returnData);

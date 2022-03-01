@@ -11,7 +11,7 @@ const bundleController = require("../../controller/bundleController");
 
 /** Api Response */
 router.get("/", checkAuth, bundleController.getBundle);
-router.get("/memers", checkAuth, bundleController.getBundleMemers);
+router.post("/memers", checkAuth, bundleController.getBundleMemers);
 router.get("/all", checkAuth, bundleController.getAllBundles);
 
 module.exports = router;

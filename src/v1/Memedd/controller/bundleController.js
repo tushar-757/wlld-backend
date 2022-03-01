@@ -43,6 +43,7 @@ exports.getBundleMemers = async (req, res, next) => {
         lastName: true,
         picture: true,
         approvedMemes: true,
+        price: true,
       },
       populate: {
         path: "memerTag",

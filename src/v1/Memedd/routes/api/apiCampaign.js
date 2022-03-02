@@ -11,7 +11,7 @@ const campaignController = require("../../controller/campaignController");
 
 /** Api Response */
 router.get("/", checkAuth, campaignController.getBrandUserCampaigns);
-router.get("/get", checkAuth, campaignController.getCampaign);
+router.post("/get", checkAuth, campaignController.getCampaign);
 router.post("/add", checkAuth, campaignController.addCampaign);
 router.put("/update", checkAuth, campaignController.updateCampaign);
 router.get("/meme", checkAuth, campaignController.getCampaignMemes);

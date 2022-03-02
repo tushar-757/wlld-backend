@@ -109,7 +109,7 @@ exports.getCampaign = async (req, res, next) => {
     campaignData["phoneNo"] = req.payload.phoneNo;
 
     returnData = {
-      status: false,
+      status: true,
       message: "Campaign data fetched successfully",
       data: campaignData,
     };

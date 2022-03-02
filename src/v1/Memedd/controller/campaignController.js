@@ -19,7 +19,7 @@ exports.getBrandUserCampaigns = async (req, res, next) => {
       }
     );
     returnData = {
-      status: "true",
+      status: true,
       message: "Campaign List fetched successfully",
       data: campaigns,
     };
@@ -103,11 +103,13 @@ exports.getCampaign = async (req, res, next) => {
     //   select: { phoneNo: true },
     // });
 
-    campaignData = campaignData.toObject();
+    console.log(campaignData);
+
+    campaignData = campaignData?.toObject();
     campaignData["phoneNo"] = req.payload.phoneNo;
 
     returnData = {
-      status: "false",
+      status: false,
       message: "Campaign data fetched successfully",
       data: campaignData,
     };

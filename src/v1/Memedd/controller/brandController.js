@@ -7,7 +7,7 @@ exports.getBrands = async (req, res, next) => {
   try {
     let returnData;
     const brands = await db.Brand.find(
-      { isDeleted: false },
+      { brandUserId: req.payload._id, isDeleted: false },
       {
         brandName: true,
         website: true,
@@ -32,7 +32,7 @@ exports.getBrands = async (req, res, next) => {
 exports.addBrand = async (req, res, next) => {
   try {
     var returnData;
-    const { brandName, description, website } = req.body;
+    const { brandName, description, website, brandLogo } = req.body;
     const brandUserId = req.payload._id;
 
     const brand = await db.Brand.findOne({
@@ -59,7 +59,7 @@ exports.addBrand = async (req, res, next) => {
         brandName: brandName,
         description: description,
         website: website,
-        // brandLogo: brandLogo,
+        brandLogo: brandLogo,
         brandUserId: brandUserId,
       });
       await newBrand.save();

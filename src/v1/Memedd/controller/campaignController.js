@@ -7,6 +7,7 @@ const brandUser = require("../../../NOSQL/models/brandUser");
 exports.getBrandUserCampaigns = async (req, res, next) => {
   try {
     let returnData;
+    console.log(req.payload._id);
     const campaigns = await db.Campaign.find(
       {
         brandUserId: req.payload._id,
@@ -82,6 +83,7 @@ exports.getCampaign = async (req, res, next) => {
     let campaignData = await db.Campaign.findById(
       {
         _id: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -98,18 +100,17 @@ exports.getCampaign = async (req, res, next) => {
         __v: false,
       },
     });
+    // });
     // .populate({
     //   path: "brandUser",
     //   select: { phoneNo: true },
     // });
 
-    console.log(campaignData);
-
-    campaignData = campaignData?.toObject();
-    campaignData["phoneNo"] = req.payload.phoneNo;
+    // campaignData = campaignData.toObject();
+    // campaignData["phoneNo"] = req.payload.phoneNo;
 
     returnData = {
-      status: false,
+      status: true,
       message: "Campaign data fetched successfully",
       data: campaignData,
     };

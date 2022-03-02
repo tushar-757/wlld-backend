@@ -17,16 +17,16 @@ const CampaignSchema = mongoose.Schema(
 
 CampaignSchema.virtual("brand", {
   ref: "brand",
-  localField: "brandUserId",
-  foreignField: "brandUserId",
-  justOne: false,
+  localField: "brandId",
+  foreignField: "_id",
+  justOne: true,
 });
 
 CampaignSchema.virtual("brandUser", {
   ref: "brandUser",
   localField: "brandUserId",
   foreignField: "_id",
-  justOne: false,
+  justOne: true,
 });
 
 CampaignSchema.virtual("campaignMemer", {

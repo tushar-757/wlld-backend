@@ -48,9 +48,9 @@ exports.updateMeme = async (req, res, next) => {
     const newMemeHistory = await new db.CampaignMemeHistory(memeHistory);
     await newMemeHistory.save();
 
-    let campaignMemer = {};
+    let memerDetailscampaignMemer = {};
     if (status && status == "APPROVED") {
-      campaignMemer = await db.CampaignMemer.findOneAndUpdate(
+      await db.CampaignMemer.updateOne(
         { memerId: previousCampaignMeme.memerId },
         { $inc: { approvedMemes: 1 } }
       );
@@ -60,7 +60,12 @@ exports.updateMeme = async (req, res, next) => {
     if (status) {
       let retMsg = {};
       let fcmTitle = {};
-      let fcmToken = campaignMemer.fcmToken;
+
+      const memerDetails = await db.Memer.findById({
+        _id: previousCampaignMeme.memerId,
+      });
+      let fcmToken = memerDetails.fcmToken;
+
       if (status == "APPROVED") {
         retMsg = "Meme approved successfully";
         fcmTitle = "Submission for Campaign was accepted";

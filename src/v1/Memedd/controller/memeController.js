@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const db = require("../../../NOSQL/database/mongodb");
 const v = require("../../validators/validator");
 const { GetById, GenerateToken } = require("../../functions/reusableFunctions");
+const { sendNotification } = require("../../../../utils/fcmHandler");
 
 exports.getMemeTypes = async (req, res, next) => {
   try {
@@ -47,13 +48,33 @@ exports.updateMeme = async (req, res, next) => {
     const newMemeHistory = await new db.CampaignMemeHistory(memeHistory);
     await newMemeHistory.save();
 
+    let campaignMemer = {};
     if (status && status == "APPROVED") {
-      await db.CampaignMemer.updateOne(
+      campaignMemer = await db.CampaignMemer.findOneAndUpdate(
         { memerId: previousCampaignMeme.memerId },
         { $inc: { approvedMemes: 1 } }
       );
+    }
 
-      // send notificaiton regardin approved or rejected
+    // send notificaiton regardin approved or rejected
+    if (status) {
+      let retMsg = {};
+      let fcmTitle = {};
+      let fcmToken = campaignMemer.fcmToken;
+      if (status == "APPROVED") {
+        retMsg = "Meme approved successfully";
+        fcmTitle = "Submission for Campaign was accepted";
+      } else {
+        retMsg = "Meme rejected successfully";
+        fcmTitle =
+          "Submission for Campaign was rejected. Tap to send a revision";
+      }
+      await sendNotification({
+        fcmTitle,
+        retMsg,
+        fcmToken,
+        previousCampaignMeme,
+      });
     }
 
     returnData = {

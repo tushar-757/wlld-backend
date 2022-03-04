@@ -1020,3 +1020,31 @@ exports.deleteCampaignDont = async (req, res, next) => {
     return res.status(500).json(error);
   }
 };
+
+exports.uploadPO = async (req, res, next) => {
+  try {
+    var returnData;
+    const { campaignId, fileName } = req.body;
+
+    const updatedCampaign = await db.Campaign.findByIdAndUpdate(
+      { _id: campaignId, isDeleted: false },
+      {
+        $set: {
+          poFileName: fileName,
+          status: "PO Submitted",
+        },
+      },
+      { new: true }
+    );
+
+    returnData = {
+      status: true,
+      message: "Campaign PO uploaded successfully",
+      data: updatedCampaign,
+    };
+
+    return res.status(200).json(returnData);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};

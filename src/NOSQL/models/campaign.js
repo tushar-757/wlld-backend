@@ -11,6 +11,7 @@ const CampaignSchema = mongoose.Schema(
     startDate: { type: Date, required: true },
     status: { type: String, required: false },
     isDeleted: { type: Boolean, default: false },
+    poFileName: { type: String, default: null },
   },
   { timestamps: true }
 );

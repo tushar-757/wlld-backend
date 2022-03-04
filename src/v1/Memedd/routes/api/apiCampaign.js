@@ -40,7 +40,7 @@ router.delete(
 );
 
 // Campaign Resources
-router.get("/resource/get", checkAuth, campaignController.getCampaignResource);
+router.post("/resource/get", checkAuth, campaignController.getCampaignResource);
 router.post("/resource/add", checkAuth, campaignController.addCampaignResource);
 router.delete(
   "/resource/delete",
@@ -49,7 +49,7 @@ router.delete(
 );
 
 // Campaign Objective
-router.get(
+router.post(
   "/objective/get",
   checkAuth,
   campaignController.getCampaignObjective
@@ -71,7 +71,7 @@ router.delete(
 );
 
 // Campaign Messages
-router.get("/message/get", checkAuth, campaignController.getCampaignMessage);
+router.post("/message/get", checkAuth, campaignController.getCampaignMessage);
 router.post("/message/add", checkAuth, campaignController.addCampaignMessage);
 router.put(
   "/message/update",
@@ -85,13 +85,13 @@ router.delete(
 );
 
 // Campaign Dos
-router.get("/do/get", checkAuth, campaignController.getCampaignDo);
+router.post("/do/get", checkAuth, campaignController.getCampaignDo);
 router.post("/do/add", checkAuth, campaignController.addCampaignDo);
 router.put("/do/update", checkAuth, campaignController.updateCampaignDo);
 router.delete("/do/delete", checkAuth, campaignController.deleteCampaignDo);
 
 // Campaign Donts
-router.get("/Dont/get", checkAuth, campaignController.getCampaignDont);
+router.post("/Dont/get", checkAuth, campaignController.getCampaignDont);
 router.post("/Dont/add", checkAuth, campaignController.addCampaignDont);
 router.put("/Dont/update", checkAuth, campaignController.updateCampaignDont);
 router.delete("/Dont/delete", checkAuth, campaignController.deleteCampaignDont);

@@ -11,7 +11,7 @@ const memerController = require("../../controller/memerController");
 
 /** Api Response */
 
-router.get("/tags", checkAuth, memerController.getTags);
+router.get("/tags", memerController.getTags);
 
 router.get("/", checkAuth, memerController.getMemers);
 router.get("/:id", checkAuth, memerController.getMemerById);

@@ -261,24 +261,17 @@ exports.updateFCMToken = async (req, res, next) => {
 exports.getTags = async (req, res, next) => {
   try {
     var returnData;
-    const tags = await db.MemerTag.find(
+    const tags = await db.Tag.find(
       {
-        memerId: req.payload._id,
         isDeleted: false,
       },
       {
         isDeleted: false,
         createdAt: false,
         updatedAt: false,
-        memerId: false,
         __v: false,
       }
-    ).populate({
-      path: "tag",
-      select: {
-        name: true,
-      },
-    });
+    );
 
     returnData = {
       status: true,

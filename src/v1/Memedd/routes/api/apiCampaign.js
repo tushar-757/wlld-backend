@@ -22,7 +22,7 @@ router.get(
 );
 
 // Campaign Memers
-router.get("/memer/", checkAuth, campaignController.getCampaignMemers);
+router.post("/memer/", checkAuth, campaignController.getCampaignMemers);
 router.post("/memer/add", checkAuth, campaignController.addCampaignMemer);
 router.delete(
   "/memer/delete",

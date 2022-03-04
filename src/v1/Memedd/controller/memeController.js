@@ -48,7 +48,6 @@ exports.updateMeme = async (req, res, next) => {
     const newMemeHistory = await new db.CampaignMemeHistory(memeHistory);
     await newMemeHistory.save();
 
-    let memerDetailscampaignMemer = {};
     if (status && status == "APPROVED") {
       await db.CampaignMemer.updateOne(
         { memerId: previousCampaignMeme.memerId },

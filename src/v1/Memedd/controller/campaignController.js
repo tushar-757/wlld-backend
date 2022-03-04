@@ -11,6 +11,7 @@ exports.getBrandUserCampaigns = async (req, res, next) => {
     const campaigns = await db.Campaign.find(
       {
         brandUserId: req.payload._id,
+        isDeleted: false,
       },
       {
         _id: true,
@@ -210,6 +211,7 @@ exports.getCampaignMemeHistory = async (req, res, next) => {
     const campaignMemeHistory = await db.CampaignMemeHistory.find(
       {
         campaignMemeId: campaignMemeId,
+        isDeleted: false,
       },
       {
         campaignMemeId: false,
@@ -240,6 +242,7 @@ exports.getCampaignMemes = async (req, res, next) => {
     const campaignMemes = await db.CampaignMeme.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -394,6 +397,7 @@ exports.getCampaignFormat = async (req, res, next) => {
     const campaignFormats = await db.CampaignFormat.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -501,6 +505,7 @@ exports.getCampaignResource = async (req, res, next) => {
     const campaignResources = await db.CampaignResource.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -585,6 +590,7 @@ exports.getCampaignObjective = async (req, res, next) => {
     const campaignObjectives = await db.CampaignObjective.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -695,6 +701,7 @@ exports.getCampaignMessage = async (req, res, next) => {
     const campaignMessages = await db.CampaignMessage.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -804,6 +811,7 @@ exports.getCampaignDo = async (req, res, next) => {
     const campaignDos = await db.CampaignDo.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,
@@ -912,6 +920,7 @@ exports.getCampaignDont = async (req, res, next) => {
     const campaignDonts = await db.CampaignDont.find(
       {
         campaignId: campaignId,
+        isDeleted: false,
       },
       {
         isDeleted: false,

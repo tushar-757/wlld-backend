@@ -96,7 +96,8 @@ router.post("/Dont/add", checkAuth, campaignController.addCampaignDont);
 router.put("/Dont/update", checkAuth, campaignController.updateCampaignDont);
 router.delete("/Dont/delete", checkAuth, campaignController.deleteCampaignDont);
 
-// Upload PO
+router.post("/finalize", checkAuth, campaignController.finalizeCampaign);
+router.post("/price", checkAuth, campaignController.campaignPrice);
 router.put("/upload-po", checkAuth, campaignController.uploadPO);
 
 module.exports = router;

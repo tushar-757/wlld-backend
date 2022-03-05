@@ -126,7 +126,7 @@ exports.addCampaign = async (req, res, next) => {
   try {
     // MISSING PDF creation
     var returnData;
-    const campaignStatus = "Brief Created";
+    const campaignStatus = "Campaign Created";
     const {
       campaignName,
       brandId,
@@ -624,6 +624,13 @@ exports.addCampaignObjective = async (req, res, next) => {
     });
     await newCampaignObjective.save();
 
+    const updatedCampaignData = await db.Campaign.findByIdAndUpdate(
+      { _id: campaignId },
+      {
+        $set: { status: "Brief Created" },
+      }
+    );
+
     returnData = {
       status: true,
       message: "Campaign Objective added successfully",
@@ -1021,27 +1028,130 @@ exports.deleteCampaignDont = async (req, res, next) => {
   }
 };
 
-exports.uploadPO = async (req, res, next) => {
+exports.finalizeCampaign = async (req, res, next) => {
   try {
     var returnData;
-    const { campaignId, fileName } = req.body;
+    const { campaignId } = req.body;
 
     const updatedCampaign = await db.Campaign.findByIdAndUpdate(
       { _id: campaignId, isDeleted: false },
       {
         $set: {
-          poFileName: fileName,
+          status: "Campaign Finalized",
+        },
+      },
+      { new: true }
+    );
+
+    const memers = await db.CampaignMemer.find(
+      {
+        campaignId: campaignId,
+        isDeleted: false,
+      },
+      {
+        isDeleted: false,
+        createdAt: false,
+        updatedAt: false,
+        __v: false,
+      }
+    ).populate({
+      path: "memer",
+      match: { isDeleted: false },
+      select: {
+        firstName: true,
+        lastName: true,
+        price: true,
+        picture: true,
+        approvedMemes: true,
+      },
+    });
+
+    let totalPayableAmount = memers.reduce(function (
+      totalAmount,
+      memerDetails
+    ) {
+      return totalAmount + memerDetails.quantity * memerDetails.memer.price;
+    },
+    0);
+
+    const paymentDetails = new db.CampaignPayment({
+      campaignId: campaignId,
+      amount: totalPayableAmount,
+    });
+    await paymentDetails.save();
+
+    returnData = {
+      status: true,
+      message: "Campaign Finalized successfully",
+      data: updatedCampaign,
+    };
+
+    return res.status(200).json(returnData);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+exports.campaignPrice = async (req, res, next) => {
+  try {
+    var returnData;
+    const { campaignId } = req.body;
+
+    const campaignPrice = await db.CampaignPayment.findOne(
+      { campaignId: campaignId, isDeleted: false },
+      { amount: true }
+    );
+
+    if (!campaignPrice) {
+      returnData = {
+        status: true,
+        message: "Campaign has not been finalized yet!",
+        data: {},
+      };
+    } else {
+      returnData = {
+        status: true,
+        message: "Campaign price fetched successfully",
+        data: campaignPrice,
+      };
+    }
+
+    return res.status(200).json(returnData);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+exports.uploadPO = async (req, res, next) => {
+  try {
+    var returnData;
+    const { campaignId, fileName } = req.body;
+
+    const updatedCampaign = await db.CampaignPayment.findOneAndUpdate(
+      { campaignId: campaignId, isDeleted: false },
+      {
+        $set: {
+          paymentfileName: fileName,
           status: "PO Submitted",
         },
       },
       { new: true }
     );
 
-    returnData = {
-      status: true,
-      message: "Campaign PO uploaded successfully",
-      data: updatedCampaign,
-    };
+    if (!updatedCampaign) {
+      returnData = {
+        status: true,
+        message: "Campaign has not been finalized yet!",
+        data: {},
+      };
+    } else {
+      returnData = {
+        status: true,
+        message: "Campaign PO uploaded successfully",
+        data: updatedCampaign,
+      };
+    }
 
     return res.status(200).json(returnData);
   } catch (error) {

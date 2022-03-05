@@ -32,6 +32,7 @@ db.CampaignDo = require("../models/campaignDo");
 db.CampaignDont = require("../models/campaignDont");
 db.CampaignMeme = require("../models/campaignMeme");
 db.CampaignMemeHistory = require("../models/campaignMemeHistory");
+db.CampaignPayment = require("../models/campaignPayment");
 
 db.Platform = require("../models/platform");
 db.PlatformFormat = require("../models/platformFormat");

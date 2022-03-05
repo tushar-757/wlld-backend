@@ -17,7 +17,7 @@ CampaignMemerSchema.virtual("memer", {
   ref: "memer",
   localField: "memerId",
   foreignField: "_id",
-  justOne: false,
+  justOne: true,
 });
 
 CampaignMemerSchema.virtual("campaign", {

@@ -133,7 +133,7 @@ exports.getCampaigns = async (req, res, next) => {
   try {
     let returnData;
     console.log(req.payload._id);
-    const clients = await db.CampaignMemer.find(
+    const campaigns = await db.CampaignMemer.find(
       { memerId: req.payload._id, isDeleted: false },
       {
         price: true,
@@ -149,6 +149,8 @@ exports.getCampaigns = async (req, res, next) => {
         brandUserId: true,
         startDate: true,
         endDate: true,
+        brandId: true,
+        description: true,
       },
       populate: {
         path: "brand",
@@ -158,10 +160,15 @@ exports.getCampaigns = async (req, res, next) => {
         },
       },
     });
+
+    let campaignsData = campaigns.filter(
+      (campaign) => campaign.campaign.status == "PO Approved"
+    );
+
     returnData = {
       status: true,
-      message: "Clients fetched successfully",
-      data: clients,
+      message: "Campaigns fetched successfully",
+      data: campaignsData,
     };
 
     return res.status(200).json(returnData);

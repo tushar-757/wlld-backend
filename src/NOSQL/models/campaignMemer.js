@@ -8,6 +8,7 @@ const CampaignMemerSchema = mongoose.Schema(
     quantity: { type: Number, required: true },
     submittedMemes: { type: Number, default: 0 },
     approvedMemes: { type: Number, default: 0 },
+    rejectedMemes: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }

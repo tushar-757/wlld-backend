@@ -55,6 +55,13 @@ exports.updateMeme = async (req, res, next) => {
       );
     }
 
+    if (status && status == "REJECTED") {
+      await db.CampaignMemer.updateOne(
+        { memerId: previousCampaignMeme.memerId },
+        { $inc: { rejectedMemes: 1 } }
+      );
+    }
+
     // send notificaiton regardin approved or rejected
     if (status) {
       let retMsg = {};

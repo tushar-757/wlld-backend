@@ -98,12 +98,12 @@ exports.login = async (req, res, next) => {
         // match: { isDeleted: false },
       }
     );
-    console.log(brandUser);
     let returnData = {};
     if (brandUser) {
       const secureToken = GenerateToken(brandUser);
 
       const brandData = {
+        _id: brandUser._id,
         companyName: brandUser.companyName,
         brandName: brandUser.brandName,
         description: brandUser.description,

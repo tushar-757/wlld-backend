@@ -405,7 +405,19 @@ exports.getCampaignFormat = async (req, res, next) => {
         updatedAt: false,
         __v: false,
       }
-    );
+    )
+      .populate({
+        path: "platform",
+        select: {
+          isDeleted: false,
+        },
+      })
+      .populate({
+        path: "platformFormat",
+        select: {
+          isDeleted: false,
+        },
+      });
 
     returnData = {
       status: true,

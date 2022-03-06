@@ -183,12 +183,12 @@ exports.addMemes = async (req, res, next) => {
 
     const memeData = req.body.map((e) => {
       return {
-        caption: e.caption,
-        platformId: e.platformId,
-        formatId: e.formatId,
+        // caption: e.caption,
+        // platformId: e.platformId,
+        // formatId: e.formatId,
         fileName: e.fileName,
         filetype: e.fileType,
-        messagePath: e.messagePath,
+        // messagePath: e.messagePath,
         name: e.name,
         memerId: memerId,
       };

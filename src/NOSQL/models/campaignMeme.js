@@ -21,4 +21,21 @@ const CampaignMemeSchema = mongoose.Schema(
   { timestamps: true }
 );
 
+CampaignMemeSchema.virtual("memer", {
+  ref: "memer",
+  localField: "memerId",
+  foreignField: "_id",
+  justOne: true,
+});
+
+CampaignMemeSchema.virtual("campaignMemer", {
+  ref: "campaignMemer",
+  localField: "memerId",
+  foreignField: "memerId",
+  justOne: true,
+});
+
+CampaignMemeSchema.set("toObject", { virtuals: true });
+CampaignMemeSchema.set("toJSON", { virtuals: true });
+
 module.exports = mongoose.model("campaignMeme", CampaignMemeSchema);

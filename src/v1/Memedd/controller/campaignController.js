@@ -250,7 +250,27 @@ exports.getCampaignMemes = async (req, res, next) => {
         updatedAt: false,
         __v: false,
       }
-    );
+    )
+      .populate({
+        path: "memer",
+        match: { isDeleted: false },
+        select: {
+          firstName: true,
+          lastName: true,
+          picture: true,
+        },
+      })
+      .populate({
+        path: "campaignMemer",
+        match: { isDeleted: false },
+        select: {
+          campaignId: false,
+          isDeleted: false,
+          createdAt: false,
+          updatedAt: false,
+          __v: false,
+        },
+      });
 
     returnData = {
       status: true,

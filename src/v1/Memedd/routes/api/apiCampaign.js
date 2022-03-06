@@ -14,8 +14,8 @@ router.get("/", checkAuth, campaignController.getBrandUserCampaigns);
 router.post("/get", checkAuth, campaignController.getCampaign);
 router.post("/add", checkAuth, campaignController.addCampaign);
 router.put("/update", checkAuth, campaignController.updateCampaign);
-router.get("/meme", checkAuth, campaignController.getCampaignMemes);
-router.get(
+router.post("/meme", checkAuth, campaignController.getCampaignMemes);
+router.post(
   "/meme/history",
   checkAuth,
   campaignController.getCampaignMemeHistory

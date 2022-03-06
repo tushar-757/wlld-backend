@@ -151,6 +151,7 @@ exports.getCampaigns = async (req, res, next) => {
         endDate: true,
         brandId: true,
         description: true,
+        campaignName: true
       },
       populate: {
         path: "brand",

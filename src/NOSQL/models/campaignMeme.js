@@ -28,6 +28,13 @@ CampaignMemeSchema.virtual("memer", {
   justOne: true,
 });
 
+CampaignMemeSchema.virtual("campaignMemer", {
+  ref: "campaignMemer",
+  localField: "memerId",
+  foreignField: "memerId",
+  justOne: true,
+});
+
 CampaignMemeSchema.set("toObject", { virtuals: true });
 CampaignMemeSchema.set("toJSON", { virtuals: true });
 

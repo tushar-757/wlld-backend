@@ -15,7 +15,7 @@ router.post("/get", checkAuth, campaignController.getCampaign);
 router.post("/add", checkAuth, campaignController.addCampaign);
 router.put("/update", checkAuth, campaignController.updateCampaign);
 router.post("/meme", checkAuth, campaignController.getCampaignMemes);
-router.get(
+router.post(
   "/meme/history",
   checkAuth,
   campaignController.getCampaignMemeHistory
@@ -31,7 +31,7 @@ router.delete(
 );
 
 // Campaign Formats
-router.get("/format/get", checkAuth, campaignController.getCampaignFormat);
+router.post("/format/get", checkAuth, campaignController.getCampaignFormat);
 router.post("/format/add", checkAuth, campaignController.addCampaignFormat);
 router.delete(
   "/format/delete",

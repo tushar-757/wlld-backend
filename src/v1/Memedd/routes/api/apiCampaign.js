@@ -31,7 +31,7 @@ router.delete(
 );
 
 // Campaign Formats
-router.get("/format/get", checkAuth, campaignController.getCampaignFormat);
+router.post("/format/get", checkAuth, campaignController.getCampaignFormat);
 router.post("/format/add", checkAuth, campaignController.addCampaignFormat);
 router.delete(
   "/format/delete",

@@ -45,7 +45,7 @@ router.post(
 );
 router.post("/updatefcmtoken", checkAuth, brandController.updateFCMToken);
 
-router.get("/memer", checkAuth, brandController.getMemer);
-router.get("/memer/memes", checkAuth, brandController.getMemerMemes);
+router.post("/memer", checkAuth, brandController.getMemer);
+router.post("/memer/memes", checkAuth, brandController.getMemerMemes);
 
 module.exports = router;

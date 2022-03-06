@@ -38,7 +38,7 @@ router.delete(
   checkAuth,
   brandController.removeMemerFromBrandGroup
 );
-router.get(
+router.post(
   "/getBrandGroupMemers",
   checkAuth,
   brandController.getBrandGroupMemers

@@ -57,18 +57,18 @@ exports.getClients = async (req, res, next) => {
   try {
     let returnData;
     console.log(req.payload._id);
-    const clients = await db.CampaignMemer.find(
+    let clients = await db.CampaignMemer.find(
       { memerId: req.payload._id, isDeleted: false },
       {
-        price: true,
         campaignId: true,
-        approvedMemes: true,
+        quantity: true,
       }
     ).populate({
       path: "campaign",
       select: {
         status: true,
         brandUserId: true,
+        brandId: true,
       },
       populate: {
         path: "brand",
@@ -78,10 +78,11 @@ exports.getClients = async (req, res, next) => {
         },
       },
     });
+
     returnData = {
       status: true,
       message: "Clients fetched successfully",
-      data: clients,
+      data: { price: req.payload.price, clients },
     };
 
     return res.status(200).json(returnData);
@@ -94,19 +95,18 @@ exports.getTransactions = async (req, res, next) => {
   try {
     let returnData;
     console.log(req.payload._id);
-    const transactions = await db.CampaignMemer.find(
+    const campaigns = await db.CampaignMemer.find(
       { memerId: req.payload._id, isDeleted: false },
       {
-        price: true,
         campaignId: true,
         quantity: true,
-        submittedMemes: true,
         approvedMemes: true,
       }
     ).populate({
       path: "campaign",
       select: {
-        brandUserId: true,
+        endDate: true,
+        brandId: true,
       },
       populate: {
         path: "brand",
@@ -117,10 +117,23 @@ exports.getTransactions = async (req, res, next) => {
       },
     });
 
+    const price = req.payload.price;
+    let earned = 0;
+    let withdrawn = 0;
+    let transactions = campaigns.map((campaign) => {
+      earned += price * campaign.approvedMemes;
+      return {
+        brandName: campaign.campaign.brand.brandName,
+        brandLogo: campaign.campaign.brand.brandLogo,
+        amount: price * campaign.approvedMemes,
+        dateTime: campaign.campaign.endDate,
+      };
+    });
+
     returnData = {
       status: true,
       message: "Transactions fetched successfully",
-      data: transactions,
+      data: { earned: earned, withdrawn: withdrawn, transactions },
     };
 
     return res.status(200).json(returnData);
@@ -151,7 +164,7 @@ exports.getCampaigns = async (req, res, next) => {
         endDate: true,
         brandId: true,
         description: true,
-        campaignName: true
+        campaignName: true,
       },
       populate: {
         path: "brand",

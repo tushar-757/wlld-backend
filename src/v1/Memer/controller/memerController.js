@@ -166,13 +166,19 @@ exports.getCampaigns = async (req, res, next) => {
         description: true,
         campaignName: true,
       },
-      populate: {
+      populate: [{
         path: "brand",
         select: {
           brandName: true,
           brandLogo: true,
+          website: true,
         },
-      },
+      }, {
+        path: "brandUser",
+        select: {
+          phoneNo: true,
+        },
+      }],
     });
 
     let campaignsData = campaigns.filter(

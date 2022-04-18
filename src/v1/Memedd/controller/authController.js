@@ -15,6 +15,7 @@ exports.register = async (req, res, next) => {
       firstName,
       lastName,
       firebaseToken,
+      companyLogo,
       fcmToken,
     } = req.body;
 
@@ -64,7 +65,7 @@ exports.register = async (req, res, next) => {
         description: description,
         website: website,
         brandUserId: brandUser._id,
-        // brandLogo: companyLogo,
+        brandLogo: companyLogo,
       });
       await newBrand.save();
 
@@ -136,6 +137,35 @@ exports.login = async (req, res, next) => {
     }
     return res.status(200).json(returnData);
   } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+exports.checkEmail = async (req, res, next) => {
+  try {
+    const {
+      email,
+    } = req.body;
+
+    const brandUser = await db.BrandUser.findOne({
+       email: email,
+    });
+
+    // check if user already registered with same phone and email ID
+    if (brandUser) {
+      return res.status(200).json({
+        status: false,
+        message: "Email is already register!!!",
+      });
+    } else {
+
+      return res.status(200).json({
+        status: true,
+        message: "Email is good to register",
+      });
+    }
+  } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };

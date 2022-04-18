@@ -12,6 +12,7 @@ const authController = require("../../controller/authController");
 /** Api Response */
 // This authentication is for Brand users
 router.post("/register", authController.register);
+router.post("/check-email", authController.checkEmail);
 router.post("/login", authController.login);
 
 module.exports = router;

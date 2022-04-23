@@ -1173,7 +1173,7 @@ exports.uploadPO = async (req, res, next) => {
     console.log(req.payload);
 
     await db.Campaign.findByIdAndUpdate(campaignId, {
-      status: "PO Submitted",
+      status: req.payload.userType == 3 ? "PO Approved" : "PO Submitted",
     })
 
     if (!updatedCampaign) {

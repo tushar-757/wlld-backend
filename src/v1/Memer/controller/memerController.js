@@ -4,7 +4,6 @@ const db = require("../../../NOSQL/database/mongodb");
 const v = require("../../validators/validator");
 const { GetById, GenerateToken } = require("../../functions/reusableFunctions");
 
-
 exports.getMemerById = async (req, res, next) => {
   try {
     let returnData;
@@ -83,17 +82,18 @@ exports.getClients = async (req, res, next) => {
       },
     });
 
+    const cl = [];
+
     clients.forEach((e) => {
-      console.log(e);
+      e.toObject();
       if (moment().isBefore(e.campaign.startDate)) {
-        e.status = "Pending";
-      } else if (
-        moment().isBetween(e.campaign.startDate, e.campaign.endDate)
-      ) {
-        e.status = "Running";
+        e["status"] = "Pending";
+      } else if (moment().isBetween(e.campaign.startDate, e.campaign.endDate)) {
+        e["status"] = "Running";
       } else {
-        e.status = "Completed";
+        e["status"] = "Completed";
       }
+      cl.push(e);
     });
 
     returnData = {

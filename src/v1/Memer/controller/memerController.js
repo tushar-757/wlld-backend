@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const db = require("../../../NOSQL/database/mongodb");
 const v = require("../../validators/validator");
 const { GetById, GenerateToken } = require("../../functions/reusableFunctions");
+import moment from "moment";
 
 exports.getMemerById = async (req, res, next) => {
   try {
@@ -69,6 +70,8 @@ exports.getClients = async (req, res, next) => {
         status: true,
         brandUserId: true,
         brandId: true,
+        startDate: true,
+        endDate: true,
       },
       populate: {
         path: "brand",
@@ -77,6 +80,18 @@ exports.getClients = async (req, res, next) => {
           brandLogo: true,
         },
       },
+    });
+
+    clients.forEach((e) => {
+      if (moment().isBefore(e.campaign.startDate)) {
+        e.status = "Pending";
+      } else if (
+        moment().isBetween(e.campaign.startDate, e, campaign.endDate)
+      ) {
+        e.status = "Running";
+      } else {
+        e.status = "Completed";
+      }
     });
 
     returnData = {
@@ -166,19 +181,22 @@ exports.getCampaigns = async (req, res, next) => {
         description: true,
         campaignName: true,
       },
-      populate: [{
-        path: "brand",
-        select: {
-          brandName: true,
-          brandLogo: true,
-          website: true,
+      populate: [
+        {
+          path: "brand",
+          select: {
+            brandName: true,
+            brandLogo: true,
+            website: true,
+          },
         },
-      }, {
-        path: "brandUser",
-        select: {
-          phoneNo: true,
+        {
+          path: "brandUser",
+          select: {
+            phoneNo: true,
+          },
         },
-      }],
+      ],
     });
 
     let campaignsData = campaigns.filter(

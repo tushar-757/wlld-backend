@@ -80,6 +80,7 @@ exports.GenerateToken = (user) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      userType: user.userType ?? 1
     },
     process.env.SECRET,
     {

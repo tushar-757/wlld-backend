@@ -84,6 +84,7 @@ exports.getClients = async (req, res, next) => {
     });
 
     clients.forEach((e) => {
+      console.log(e);
       if (moment().isBefore(e.campaign.startDate)) {
         e.status = "Pending";
       } else if (

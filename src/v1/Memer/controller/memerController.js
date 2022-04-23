@@ -85,7 +85,6 @@ exports.getClients = async (req, res, next) => {
     const cl = [];
 
     clients.forEach((e) => {
-      e.toObject();
       let status = "Completed";
       if (moment().isBefore(e.campaign.startDate)) {
         status = "Pending";

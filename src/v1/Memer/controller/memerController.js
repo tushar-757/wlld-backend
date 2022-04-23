@@ -1,8 +1,9 @@
+const moment = require("moment");
 const { validationResult } = require("express-validator");
 const db = require("../../../NOSQL/database/mongodb");
 const v = require("../../validators/validator");
 const { GetById, GenerateToken } = require("../../functions/reusableFunctions");
-import moment from "moment";
+
 
 exports.getMemerById = async (req, res, next) => {
   try {

@@ -86,14 +86,17 @@ exports.getClients = async (req, res, next) => {
 
     clients.forEach((e) => {
       e.toObject();
+      let status = "Completed";
       if (moment().isBefore(e.campaign.startDate)) {
-        e["status"] = "Pending";
+        status = "Pending";
       } else if (moment().isBetween(e.campaign.startDate, e.campaign.endDate)) {
-        e["status"] = "Running";
-      } else {
-        e["status"] = "Completed";
-      }
-      cl.push(e);
+        status = "Running";
+      } 
+      console.log(status);
+      cl.push({
+        ...e,
+        status,
+      });
     });
 
     returnData = {

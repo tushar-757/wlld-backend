@@ -1165,11 +1165,14 @@ exports.uploadPO = async (req, res, next) => {
       {
         $set: {
           paymentfileName: fileName,
-          status: "PO Submitted",
         },
       },
       { new: true }
     );
+
+    await db.Campaign.findByIdAndUpdate(campaignId, {
+      status: "PO Submitted",
+    })
 
     if (!updatedCampaign) {
       returnData = {

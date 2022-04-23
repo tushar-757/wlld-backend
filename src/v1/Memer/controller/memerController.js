@@ -80,7 +80,7 @@ exports.getClients = async (req, res, next) => {
           brandLogo: true,
         },
       },
-    });
+    }).lean();
 
     const cl = [];
 

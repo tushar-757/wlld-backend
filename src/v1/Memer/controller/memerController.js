@@ -202,11 +202,22 @@ exports.getCampaigns = async (req, res, next) => {
           },
         },
       ],
-    });
+    }).lean();
 
     let campaignsData = campaigns.filter(
       (campaign) => campaign.campaign.status == "PO Approved"
     );
+
+    campaigns.forEach((e) => {
+      let status = "Completed";
+      if (moment().isBefore(e.campaign.startDate)) {
+        status = "Upcoming";
+      } else if (moment().isBetween(e.campaign.startDate, e.campaign.endDate)) {
+        status = "Live";
+      } 
+      console.log(status);
+      e["status"] = status;
+    });
 
     returnData = {
       status: true,

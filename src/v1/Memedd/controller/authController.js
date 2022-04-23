@@ -156,12 +156,18 @@ exports.checkEmail = async (req, res, next) => {
       return res.status(200).json({
         status: false,
         message: "Email is already register!!!",
+        data: {
+          exist: true,
+        }
       });
     } else {
 
       return res.status(200).json({
         status: true,
         message: "Email is good to register",
+        data: {
+          exist: false,
+        }
       });
     }
   } catch (error) {

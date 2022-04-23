@@ -99,7 +99,7 @@ exports.getClients = async (req, res, next) => {
     returnData = {
       status: true,
       message: "Clients fetched successfully",
-      data: { price: req.payload.price, clients },
+      data: { price: req.payload.price, clients: cl },
     };
 
     return res.status(200).json(returnData);

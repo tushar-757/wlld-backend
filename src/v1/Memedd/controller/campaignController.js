@@ -1170,6 +1170,8 @@ exports.uploadPO = async (req, res, next) => {
       { new: true }
     );
 
+    console.log(req.payload);
+
     await db.Campaign.findByIdAndUpdate(campaignId, {
       status: "PO Submitted",
     })

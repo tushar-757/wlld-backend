@@ -55,6 +55,7 @@ exports.register = async (req, res, next) => {
         phoneNo: phoneNo,
         firebaseToken: firebaseToken,
         fcmToken: fcmToken,
+        userType: 1,
       });
       await brandUser.save();
 

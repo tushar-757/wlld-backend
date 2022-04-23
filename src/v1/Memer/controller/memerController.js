@@ -201,7 +201,7 @@ exports.addMemes = async (req, res, next) => {
   try {
     memerId = req.payload._id;
 
-    const memeData = req.body.map((e) => {
+    const memeData = req.body.memes?.map((e) => {
       return {
         // caption: e.caption,
         // platformId: e.platformId,

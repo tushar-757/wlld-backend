@@ -88,7 +88,7 @@ exports.getClients = async (req, res, next) => {
       if (moment().isBefore(e.campaign.startDate)) {
         e.status = "Pending";
       } else if (
-        moment().isBetween(e.campaign.startDate, e, campaign.endDate)
+        moment().isBetween(e.campaign.startDate, e.campaign.endDate)
       ) {
         e.status = "Running";
       } else {

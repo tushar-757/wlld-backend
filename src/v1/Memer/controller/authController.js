@@ -128,14 +128,18 @@ exports.verifyEmail = async (req, res, next) => {
       returnData = {
         status: false,
         message: "Email already exists",
-        data: null,
+        data: {
+          exist: true
+        },
       };
     } else {
       
       returnData = {
         status: true,
         message: "Email validated",
-        data: null,
+        data: {
+          exist: false
+        },
       };
     }
     return res.status(200).json(returnData);

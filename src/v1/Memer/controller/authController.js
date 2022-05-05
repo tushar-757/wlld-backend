@@ -45,7 +45,7 @@ exports.register = async (req, res, next) => {
           tagId: e.tagId,
         };
       });
-      if (tagList.length != 0) await db.MemerTag.insertMany(tagList);
+      if (tagList?.length != 0) await db.MemerTag.insertMany(tagList);
 
       const secureToken = GenerateToken(newMemer);
       const tokenData = {

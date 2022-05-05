@@ -38,7 +38,8 @@ exports.register = async (req, res, next) => {
       });
       await newMemerAccountDetails.save();
 
-      const tagList = req.body.tagList.map((e) => {
+      let tagList = [];
+      tagList = req.body?.tagList?.map((e) => {
         return {
           memerId: newMemer._id,
           tagId: e.tagId,

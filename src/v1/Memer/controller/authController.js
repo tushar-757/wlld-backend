@@ -60,6 +60,7 @@ exports.register = async (req, res, next) => {
     }
     return res.status(200).json(returnData);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -114,14 +115,13 @@ exports.login = async (req, res, next) => {
   }
 };
 
-
 exports.verifyEmail = async (req, res, next) => {
   try {
     let returnData;
     const { email } = req.body;
 
     const memer = await db.Memer.findOne({
-     email: email ,
+      email: email,
     });
 
     if (memer) {
@@ -129,16 +129,15 @@ exports.verifyEmail = async (req, res, next) => {
         status: false,
         message: "Email already exists",
         data: {
-          exist: true
+          exist: true,
         },
       };
     } else {
-      
       returnData = {
         status: true,
         message: "Email validated",
         data: {
-          exist: false
+          exist: false,
         },
       };
     }

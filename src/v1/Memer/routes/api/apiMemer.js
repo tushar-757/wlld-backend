@@ -13,7 +13,7 @@ const memerController = require("../../controller/memerController");
 
 router.get("/tags", memerController.getTags);
 
-router.get("/", checkAuth, memerController.getMemers);
+router.get("/", memerController.getMemers);
 router.get("/:id", checkAuth, memerController.getMemerById);
 
 router.post("/clients", checkAuth, memerController.getClients);

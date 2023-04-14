@@ -41,5 +41,6 @@ db.ResourceType = require("../models/platformFormat");
 db.Bundle = require("../models/bundle");
 db.BundleMemer = require("../models/bundleMemer");
 db.BundleTag = require("../models/bundleTag");
+db.Admin = require('../models/admin')
 
 module.exports = db;
